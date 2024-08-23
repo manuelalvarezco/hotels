@@ -1,0 +1,78 @@
+<div class="p-6 bg-white rounded-lg shadow-md">
+  <mat-dialog-content>
+  <div class="mb-6">
+    <h3 class="text-xl font-medium text-center my-5">{{ data.detail ? 'Detalle de' : 'Realizar' }} reserva</h3>
+    <form [formGroup]="form">
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Nombre completo</mat-label>
+          <input type="text" matInput formControlName="fullName">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Correo electrónico</mat-label>
+          <input type="email" matInput formControlName="email">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Tipo de documento</mat-label>
+          <mat-select formControlName="documentType">
+            @for (documentType of documentTypes; track documentType) {
+              <mat-option [value]="documentType">{{documentType}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Documento</mat-label>
+          <input type="text" matInput formControlName="document">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Género</mat-label>
+          <mat-select formControlName="gender">
+            @for (gender of genders; track gender) {
+              <mat-option [value]="gender">{{gender}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Teléfono</mat-label>
+          <input type="text" matInput formControlName="phone">
+        </mat-form-field>
+      </div>
+      <div class="mb-4"><mat-form-field class="w-full">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="birthday">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Número de contacto de emergencia</mat-label>
+          <input type="text" matInput formControlName="contactPhone">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Nombre del contacto</mat-label>
+          <input type="text" matInput formControlName="contactName">
+        </mat-form-field>
+      </div>
+      <div class="flex justify-center" *ngIf="!data.detail">
+        <button type="button"
+          class="w-full px-6 py-3 text-sm bg-blue-500 focus:ring-blue-300 hover:bg-blue-400 font-medium tracking-wide text-white capitalize transition-colors duration-300 transformrounded-lg focus:outline-none focus:ring focus:ring-opacity-50"
+          [ngClass]="{'bg-gray-300 focus:ring-gray-300 hover:bg-gray-300': !form.valid }" [disabled]="!form.valid"
+          [mat-dialog-close]="form.value">{{ data.name?.length ? 'Guardar' : 'Reservar' }} </button>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+</div>

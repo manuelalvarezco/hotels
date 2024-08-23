@@ -1,0 +1,68 @@
+<div class="p-6 bg-white rounded-lg shadow-md">
+  <div class="mb-6">
+    <h3 class="text-xl font-medium mb-2">{{ data.name?.length ? 'Editar' : 'Crear' }} habitación</h3>
+    <form [formGroup]="form">
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Suite" formControlName="name">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Hotel</mat-label>
+          <mat-select formControlName="hotel">
+            @for (hotel of hotels; track hotel) {
+              <mat-option [value]="hotel.id">{{hotel.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Precios base</mat-label>
+          <input type="number" matInput placeholder="250000" formControlName="price">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Tipo de habitación</mat-label>
+          <mat-select formControlName="rommType">
+            @for (rommType of rommTypes; track rommType) {
+              <mat-option [value]="rommType">{{rommType}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Impuestos</mat-label>
+          <input type="number" matInput placeholder="19" formControlName="tax">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Dirección</mat-label>
+          <input matInput placeholder="Carrera 8 #20" formControlName="location">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>URL Imagen</mat-label>
+          <input type="text" matInput placeholder="https:miweb/files/perro.jpg" formControlName="image">
+        </mat-form-field>
+        @if (imageField.touched && imageField.invalid) {
+          <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+            URL inválida
+          </span>
+        }
+      </div>
+      <div class="flex justify-center">
+        <button type="button"
+          class="w-full px-6 py-3 text-sm bg-blue-500 focus:ring-blue-300 hover:bg-blue-400 font-medium tracking-wide text-white capitalize transition-colors duration-300 transformrounded-lg focus:outline-none focus:ring focus:ring-opacity-50"
+          [ngClass]="{'bg-gray-300 focus:ring-gray-300 hover:bg-gray-300': !form.valid }" [disabled]="!form.valid"
+          [mat-dialog-close]="form.value">{{ data.name?.length ? 'Guardar' : 'Agregar' }} </button>
+      </div>
+    </form>
+  </div>
+</div>

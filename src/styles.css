@@ -1,0 +1,75 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'swiper/swiper-bundle.css';
+
+
+input {
+  height: 2.5rem;
+  padding: 10px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  color: dimgray;
+  background-color: white;
+}
+
+select {
+  height: 2.5em;
+  width: 100%;
+  padding: 10px 16px;
+  outline: none;
+  font-size: 16px;
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  color: dimgray;
+}
+
+button {
+  height: 2.5rem;
+  padding: 0 10px;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button.sm {
+  min-width: 150px;
+}
+
+.button.contained {
+  background-color: #2d8e94;
+  color: white;
+  text-transform: uppercase;
+}
+
+.button.contained:disabled {
+  background-color: #dbdbdb;
+  color: dimgray;
+  cursor: not-allowed;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@media screen and (min-width: 1024px) {
+  .button-lg {
+    display: auto;
+  }
+  .button-xs {
+    display: none;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .button-lg {
+    display: none;
+  }
+  .button-xs {
+    display: auto;
+  }
+}

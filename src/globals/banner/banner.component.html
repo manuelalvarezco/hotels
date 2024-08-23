@@ -1,0 +1,57 @@
+<div class="hero">
+  <img src="assets/banner.jpg" class="absolute  w-full h-full object-cover -z-10 " />
+  <div class="max-w-5xl mx-auto px-4 xl:px-0 pt-24 lg:pt-32 pb-40 relative z-10">
+    <h1 class="font-semibold text-white text-5xl md:text-6xl">
+      <span class="text-[#ff0]">Descubra
+
+      </span> su estancia perfecta
+    </h1>
+    <div class="max-w-4xl">
+      <p class="mt-5 text-white text-lg  text-justify ">
+        Experimente el lujo y el confort en los mejores hoteles del mundo. Ya sea que esté planeando una escapada
+        relajante, un viaje de negocios o unas vacaciones familiares, encuentre el alojamiento perfecto que se adapte a
+        sus necesidades. Reserva ahora y comienza hoy mismo tu viaje inolvidable.
+      </p>
+    </div>
+    <div class="flex items-center justify-center mt-8 lg:hidden">
+      <button routerLink="hotels" routerLinkActive="router-link-active" type="button"
+        class="button sm contained">Reservar</button>
+    </div>
+  </div>
+  <form class="form-group-inline z-50" [formGroup]="form">
+    <div class="product-elements">
+      <mat-form-field class="example-full-width">
+        <mat-label>Ciudad</mat-label>
+        <input type="text" placeholder="Seleccione" aria-label="Number" matInput formControlName="city"
+          [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          @for (option of filteredOptions | async; track option) {
+          <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="product-elements">
+      <mat-form-field class="example-full-width">
+        <mat-label>Cantidad</mat-label>
+        <input matInput placeholder="4" formControlName="amount">
+      </mat-form-field>
+    </div>
+    <div class="product-elements">
+      <mat-form-field>
+        <mat-label>Fechas</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Desde" formControlName="startDate">
+          <input matEndDate placeholder="Hasta" formControlName="endDate">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+    <div class="product-elements button">
+      <button type="button" class="button sm contained" [disabled]="!form.valid" (click)="search()">Buscar</button>
+    </div>
+  </form>
+
+</div>
+<!-- End Hero -->

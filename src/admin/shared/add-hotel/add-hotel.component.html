@@ -1,0 +1,75 @@
+<div class="p-6 bg-white rounded-lg shadow-md">
+  <div class="mb-6">
+    <h3 class="text-xl font-medium mb-2 text-center py-3">{{ data.name?.length ? 'Editar' : 'Crear' }} hotel</h3>
+    <form [formGroup]="form">
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Praderas Hotel" formControlName="name">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>País</mat-label>
+          <mat-select formControlName="country" (selectionChange)="selectCountry($event)">
+            @for (country of countries; track country) {
+              <mat-option [value]="country.country_name">{{country.country_name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="state" (selectionChange)="selectState($event)">
+            @for (state of states; track state) {
+              <mat-option [value]="state.state_name">{{state.state_name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Ciudad</mat-label>
+          <mat-select formControlName="city">
+            @for (city of cities; track city) {
+              <mat-option [value]="city.city_name">{{city.city_name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Precios desde</mat-label>
+          <input type="number" matInput placeholder="250000" formControlName="price">
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+
+        <div class="mb-4">
+          <mat-form-field class="w-full">
+            <mat-label>URL Imagen</mat-label>
+            <input type="text" matInput placeholder="https:miweb/files/perro.jpg" formControlName="image">
+          </mat-form-field>
+          @if (imageField.touched && imageField.invalid) {
+            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+              URL inválida
+            </span>
+          }
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <button type="button"
+          class="w-full px-6 py-3 text-sm bg-blue-500 focus:ring-blue-300 hover:bg-blue-400 font-medium tracking-wide text-white capitalize transition-colors duration-300 transformrounded-lg focus:outline-none focus:ring focus:ring-opacity-50"
+          [ngClass]="{'bg-gray-300 focus:ring-gray-300 hover:bg-gray-300': !form.valid }"
+          [disabled]="!form.valid"
+          [mat-dialog-close]="form.value"> {{ data.name?.length ? 'Guardar' : 'Agregar' }} </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Optional: List of added hotels could go here -->
+</div>
