@@ -1,11 +1,14 @@
 import { AbstractControl } from '@angular/forms';
-import moment from 'moment';
+import { differenceInYears, format } from 'date-fns';
 
 export class MyValidators {
   static greaterAge(control: AbstractControl) {
-    const date = moment(control.value).format('YYYY-MM-DD');
-    const age = moment().diff(date, 'years');
-    return !isNaN(age) && age < 18 ? { invalid_age: true } : true;
-
+    if (control.value) {
+      const date = format(new Date(control.value), 'MM/dd/yyyy');
+      const age = differenceInYears(Date.now(), date);
+      return !isNaN(age) && age < 18 ? { invalid_age: true } : true;
+    } else {
+      return { invalid_age: true };
+    }
   }
 }
