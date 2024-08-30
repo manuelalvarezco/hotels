@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAccesstoken();
     this.buildFormLogin();
     this.buildFormRegister();
   }
@@ -70,10 +69,5 @@ export class LoginComponent implements OnInit {
         this.authService.accessDenied('Login');
       }
     );
-  }
-
-
-  getAccesstoken() {
-    this.locationsService.getAccesstoken().subscribe();
   }
 }

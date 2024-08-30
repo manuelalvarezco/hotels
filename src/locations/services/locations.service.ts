@@ -12,44 +12,15 @@ export class LocationsService {
 
   constructor(
     private http: HttpClient,
-    private localStorageService: LocalStorageService
   ) {}
-
-  getAccesstoken() {
-    return this.http.get(`${this.URL}/locations/getAccesstoken`).pipe(
-      retry(2),
-      map((response: any) => {
-        this.localStorageService.saveData('auth_token', response.auth_token);
-        return response;
-      })
-    );
-  }
   getCountries() {
-    const authToken = this.localStorageService.getData('auth_token');
-    const headers = {
-      token: `${authToken}`,
-    };
-    return this.http.get(`${this.URL}/locations/countries`, {
-      headers: headers,
-    });
+    return this.http.get(`${this.URL}/locations/countries`);
   }
 
   getStates(country: string) {
-    const authToken = this.localStorageService.getData('auth_token');
-    const headers = {
-      token: `${authToken}`,
-    };
-    return this.http.get(`${this.URL}/locations/states/${country}`, {
-      headers: headers,
-    });
+    return this.http.get(`${this.URL}/locations/states/${country}`);
   }
   getCities(city: string) {
-    const authToken = this.localStorageService.getData('auth_token');
-    const headers = {
-      token: `${authToken}`,
-    };
-    return this.http.get(`${this.URL}/locations/cities/${city}`, {
-      headers: headers,
-    });
+    return this.http.get(`${this.URL}/locations/cities/${city}`);
   }
 }
