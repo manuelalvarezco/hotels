@@ -1,4 +1,3 @@
 export const environment = {
-  TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJhc2tAdW5pdmVyc2FsLXR1dG9yaWFsLmNvbSIsImFwaV90b2tlbiI6IlQ2VlBOUmZXbkxFbmdsMHd2djctZ1d2Y09KRHFPSkptc3ZoNkNOdGo5a3p1Z1RSYkhvdXVET1NXeTdzYmJzdG5taDAifSwiZXhwIjoxNzI0NDMwNTUxfQ.KHsOBWto7HSP605P02vJvUu7Q26kKiYEFg5aAOh34R4',
-  UNIVERSAL_API: 'https://www.universal-tutorial.com/api'
+  BACKEND_URL: "https://app-booking-backend.vercel.app/api/v1"
 };

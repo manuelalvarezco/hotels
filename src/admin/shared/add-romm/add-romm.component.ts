@@ -36,7 +36,7 @@ import { MatInputModule } from '@angular/material/input';
 export class AddRommComponent implements OnInit {
   form: any;
   control = new FormControl('');
-  hotels: Hotel[] = [];
+  hotels: any = [];
   rommTypes: string[] = ['Sencilla', 'Doble', 'Suite'];
   constructor(
     private fb: FormBuilder,
@@ -45,15 +45,15 @@ export class AddRommComponent implements OnInit {
     private hotelsService: HotelsService
   ) {}
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.loadHotels();
     this.buildForm(this.data);
   }
 
   loadHotels(): void {
-    this.hotelsService.getHotels().then((hotels: Hotel[]) => {
-      this.hotels = hotels.filter((hotel: any) => hotel.active);
-    });
+    this.hotelsService.getHotels().subscribe((hotels: any) => {
+      this.hotels = hotels;
+    })
   }
 
   get imageField() {
@@ -63,7 +63,7 @@ export class AddRommComponent implements OnInit {
     return this.form.get('hotel');
   }
 
-  buildForm(data?: any) {    
+  buildForm(data?: any) {
     this.form = this.fb.group({
       name: [data.name, Validators.required],
       hotel: [data.hotel, Validators.required],

@@ -6,6 +6,7 @@ import { SwalFireService } from '../../../globals/services/swal-fire.service';
 import { Room } from '../../../rooms/room.interface';
 import { AddRommComponent } from '../../shared/add-romm/add-romm.component';
 import { MatIconModule } from '@angular/material/icon';
+import { HotelsService } from '../../../hotels/services/hotels.service';
 
 @Component({
   selector: 'app-room-management',
@@ -16,20 +17,32 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class RoomManagementComponent implements OnInit {
   romms: any[] = [];
+  hotels: any[] = [];
 
   constructor(
     public dialog: MatDialog,
     private roomsService: RoomsService,
-    private swalFire: SwalFireService
+    private swalFire: SwalFireService,
+    private hotelService: HotelsService
   ) {}
 
   ngOnInit(): void {
-    this.loadRomms();
+    this.loadHotels();
+  }
+
+  loadHotels() {
+    this.hotelService.getHotels().subscribe( (hotels: any) => {
+      this.hotels = hotels;
+      this.loadRomms();
+    })
   }
 
   loadRomms(): void {
-    this.roomsService.getRooms().then((romms: any) => {
-      this.romms = romms;      
+    this.roomsService.getRooms().subscribe((romms: any) => {
+      this.romms = romms;
+      this.romms.map((romm:any) => {
+        romm.hotelName = this.hotels.find((hotel: any) => hotel.id === romm.hotel)?.name
+      });
     });
   }
 
@@ -42,7 +55,7 @@ export class RoomManagementComponent implements OnInit {
       if (result) {
         const romm = JSON.parse(JSON.stringify(result)) as any;
         this.roomsService.addRoom(romm).subscribe((romms: any) => {
-          this.romms = romms;
+          this.loadRomms();
           this.swalFire.successMessage(
             'Perfecto!',
             'Habitación creada con éxito'
@@ -52,7 +65,7 @@ export class RoomManagementComponent implements OnInit {
     });
   }
 
-  editRomm(item: Room) {    
+  editRomm(item: Room) {
     const dialogRef = this.dialog.open(AddRommComponent, {
       data: {
         name: item.name,
@@ -73,7 +86,7 @@ export class RoomManagementComponent implements OnInit {
         this.roomsService
           .editRomm(item.id, { ...romm, hotel: rommId })
           .subscribe((hotels: any) => {
-            this.romms = hotels;
+            this.loadHotels();
             this.swalFire.successMessage(
               'Perfecto!',
               'Hotel actualizado con éxito'

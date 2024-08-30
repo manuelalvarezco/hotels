@@ -42,19 +42,19 @@ export class BannerComponent implements OnInit {
   options = [];
   filteredOptions: Observable<string[]> = new Observable();
   form: any;
-
+  today = new Date();
   constructor(private fb: FormBuilder, private router: Router, private hotelsService: HotelsService) {}
 
   ngOnInit() {
     this.buildForm();
     this.getHotelCities();
-    
+
   }
 
   buildForm() {
     this.form = this.fb.group({
       city: ['', Validators.required],
-      amount: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.pattern('[0-9]|1[0-9]|2[0-4]')]],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
     });
@@ -76,7 +76,6 @@ export class BannerComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter((option: string) =>
       option.toLowerCase().includes(filterValue)
     );

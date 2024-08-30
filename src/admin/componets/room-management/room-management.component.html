@@ -1,21 +1,22 @@
 <div>
   <div class="flex justify-between items-center my-5">
-      <h2 class="text-2xl font-semibold mb-4">Administración de habitaciones</h2>
-      <button (click)="addRomm()" class="rounded-md px-5 py-1 bg-blue-600 text-white cursor-pointer button-lg">Crear Habitación</button>
-      <button (click)="addRomm()" class="rounded-md px-5 py-1 bg-blue-600 text-white cursor-pointer button-xs">
-        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
-      </button>
+    <h2 class="text-2xl font-semibold mb-4">Administración de habitaciones</h2>
+    <button (click)="addRomm()" class="rounded-md px-5 py-1 bg-blue-600 text-white cursor-pointer button-lg">Crear
+      Habitación</button>
+    <button (click)="addRomm()" class="rounded-md px-5 py-1 bg-blue-600 text-white cursor-pointer button-xs">
+      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
+    </button>
   </div>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
         <tr>
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hotel ID</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hotel</th>
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
@@ -26,8 +27,10 @@
           <td class="px-6 py-4 whitespace-nowrap">{{ romm.price | currency }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ romm.active ? 'Activo' : 'Inactivo' }}</td>
           <td class="px-6 py-4 whitespace-nowrap">
-            <button  class="text-blue-500 hover:text-blue-700" (click)="editRomm(romm)">Editar</button>
-            <button  class="ml-4 text-red-500 hover:text-red-700" (click)="updateRomm(romm)">{{ !romm.active ? 'Activar' : 'Desactivar' }}</button>
+            <button [disabled]="!romm.active" class="text-blue-500 hover:text-blue-700"
+              [ngClass]="{'text-gray-500 hover:text-gray-500': !romm.active}" (click)="editRomm(romm)">Editar</button>
+            <button class="ml-4 text-red-500 hover:text-red-700" (click)="updateRomm(romm)">{{ !romm.active ? 'Activar'
+              : 'Desactivar' }}</button>
           </td>
         </tr>
       </tbody>

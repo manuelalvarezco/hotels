@@ -10,6 +10,7 @@ import { ReservesService } from '../../../reserves/services/reserves.service';
 import { SwalFireService } from '../../../globals/services/swal-fire.service';
 import { UsersService } from '../../../users/services/users.service';
 import { Reserve } from '../../../reserves/reserve.interface';
+import { HotelsService } from '../../../hotels/services/hotels.service';
 
 @Component({
   selector: 'app-romms',
@@ -19,9 +20,11 @@ import { Reserve } from '../../../reserves/reserve.interface';
   styleUrl: './romms.component.css',
 })
 export class RommsComponent {
+  hotels: any = [];
   romms: Room[] = [];
-  romms$: Observable<Room[]> = new Observable();
-
+  romms$: Observable<any> = new Observable();
+  hotelId: any;
+  hotelSelected: any;
   constructor(
     private roomsService: RoomsService,
     private route: ActivatedRoute,
@@ -29,24 +32,31 @@ export class RommsComponent {
     private reservesService: ReservesService,
     private swalFire: SwalFireService,
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    private hotelService: HotelsService
   ) {}
 
   ngOnInit(): void {
-    this.getRomms();
-  }
-
-  getRomms() {
     this.romms$ = this.route.paramMap.pipe(
       switchMap((params) => {
-        const id = Number(params.get('id'));
-        return this.roomsService.getRoomsByHotelId(id);
+        this.hotelId = Number(params.get('id'));
+        this.getHotelById();
+        this.getRoomsByHotelId();
+        return this.roomsService.getRoomsByHotelId(this.hotelId);
       })
     );
+  }
 
-    this.romms$.subscribe((resp) => {
-      this.romms = resp;
-    });
+  getHotelById() {
+    this.hotelService.getHotelById(this.hotelId).subscribe( hotel => {
+      this.hotelSelected = hotel;
+    })
+  }
+
+  getRoomsByHotelId() {
+    this.roomsService.getRoomsByHotelId(this.hotelId).subscribe((romms: any) => {
+      this.romms = romms;
+    })
   }
 
   reserve(romm: Room) {
@@ -66,9 +76,9 @@ export class RommsComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const user = JSON.parse(JSON.stringify(result)) as any;
-        this.usersService.addUser(user).subscribe((user) => {
-          if (user) {            
+        const user: any = JSON.parse(JSON.stringify(result)) as any;
+        this.usersService.addUser(user).subscribe((user: any) => {
+          if (user) {
             const reserve: Reserve = {
               userId: user.id,
               roomId: romm.id,

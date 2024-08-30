@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MyValidators } from '../../utils/validators';
 
 @Component({
   selector: 'app-add-reserve',
@@ -44,6 +45,7 @@ export class AddReserveComponent {
   documentTypes: string[] = ['Cédula', 'Pasaporte', 'Rut'];
   genders: string[] = ['Masculino', 'Femenino', 'Otro'];
   form: any;
+  today = new Date();
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddReserveComponent>,
@@ -62,7 +64,7 @@ export class AddReserveComponent {
       document: [data.document, Validators.required],
       phone: [data.phone, Validators.required],
       gender: [data.gender, Validators.required],
-      birthday: [data.birthday, Validators.required],
+      birthday: [data.birthday, [Validators.required, MyValidators.greaterAge]],
       contactPhone: [data.contactPhone, Validators.required],
       contactName: [data.contactPhone, Validators.required],
     });

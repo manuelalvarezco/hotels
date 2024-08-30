@@ -15,7 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
   styleUrl: './hotel-management.component.css',
 })
 export class HotelManagementComponent {
-  hotels: any[] = [];
+  hotels: any = [];
 
   constructor(
     public dialog: MatDialog,
@@ -28,9 +28,9 @@ export class HotelManagementComponent {
   }
 
   loadHotels(): void {
-    this.hotelsService.getHotels().then((hotels: Hotel[]) => {
-      this.hotels = hotels;      
-    });
+    this.hotelsService.getHotels().subscribe((hotels: any) => {
+      this.hotels = hotels;
+    })
   }
 
   addHotel() {
@@ -42,7 +42,7 @@ export class HotelManagementComponent {
       if (result) {
         const hotel = JSON.parse(JSON.stringify(result)) as any;
         this.hotelsService.addHotel(hotel).subscribe((hotels: any) => {
-          this.hotels = hotels;
+          this.loadHotels();
           this.swalFire.successMessage('Perfecto!', 'Hotel creado con éxito');
         });
       }
@@ -56,21 +56,21 @@ export class HotelManagementComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const hotel = JSON.parse(JSON.stringify(result)) as any;        
-        this.hotelsService.editHotel(item.id, hotel).subscribe((hotels: any) => {          
-          this.hotels = hotels;          
+        const hotel = JSON.parse(JSON.stringify(result)) as any;
+        this.hotelsService.editHotel(item.id, hotel).subscribe((hotels: any) => {
+          this.loadHotels();
           this.swalFire.successMessage('Perfecto!', 'Hotel actualizado con éxito');
         });
       }
     });
   }
 
-  dupdateHotel(hotel: Hotel) {
+  updateHotel(hotel: Hotel) {
     const action = hotel.active ? 'desactivar' : 'activar';
     this.swalFire.confirmActionMessage(`¿Está seguro de ${action} este hotel?`, `${action}`)
-    .then((result: any) => {      
+    .then((result: any) => {
       if (result.isConfirmed) {
-        this.hotelsService.dupdateHotel(hotel.id, hotel).subscribe((hotels: any) => {          
+        this.hotelsService.updateHotel(hotel.id, hotel).subscribe((hotels: any) => {
           this.hotels = hotels;
           this.swalFire.successMessage('Perfecto!', 'Proceso realizado con éxito');
         });

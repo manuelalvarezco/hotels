@@ -1,9 +1,8 @@
 <div class="p-10">
-  <h3 class="text-4xl font-bold uppercase text-center mb-5">Habitaciones {{ romms[0].hotelName ? ' - ' +
-    romms[0].hotelName : '' }}</h3>
+  <h3 class="text-4xl font-bold uppercase text-center mb-5">Habitaciones en {{ hotelSelected?.name }}</h3>
 
   <div class="flex flex-wrap justify-center gap-5">
-    @for (romm of romms; track romm) {
+    @for (romm of romms$ | async ; track romm) {
     <div class="w-fit hover:shadow-md rounded-lg px-2 cursor-pointer" (click)="reserve(romm)">
       <div class="p-2">
         <img [src]="romm.image" (error)="handleMissingImage($event, romm)" [alt]="romm.name" class="w-72 h-72 rounded-lg object-cover">

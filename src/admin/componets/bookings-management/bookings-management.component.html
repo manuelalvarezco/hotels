@@ -17,7 +17,7 @@
               <td class="px-6 py-4 whitespace-nowrap">{{ reserve.id }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ reserve.hotelName }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ reserve.userName }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">{{ reserve.date | date }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ reserve.date | date: 'MMM d, y, h:mm:ss a' }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ reserve.status }}</td>
               <td class="px-6 py-4 whitespace-nowrap">
                   <button class="text-blue-500 hover:text-blue-700" (click)="detail(reserve)">Detalle</button>

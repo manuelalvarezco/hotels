@@ -16,13 +16,13 @@ export class UsersComponent implements OnInit {
   constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
-    this.loadUsers();    
+    this.loadUsers();
   }
 
   loadUsers() {
     this.usersService.getUsers()
-      .then((users: User[]) => {
-        this.users = users;        
+      .subscribe((users: any) => {
+        this.users = users;
       })
   }
 }
