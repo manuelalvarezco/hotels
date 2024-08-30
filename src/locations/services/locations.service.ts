@@ -9,17 +9,11 @@ import { LocalStorageService } from '../../globals/services/local-storage.servic
 })
 export class LocationsService {
   private URL = environment.BACKEND_URL;
-  private headers = {};
 
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService
-  ) {
-    const authToken = this.localStorageService.getData('auth_token');
-    this.headers = {
-      token: `${authToken}`,
-    };
-  }
+  ) {}
 
   getAccesstoken() {
     return this.http.get(`${this.URL}/locations/getAccesstoken`).pipe(
@@ -31,19 +25,31 @@ export class LocationsService {
     );
   }
   getCountries() {
+    const authToken = this.localStorageService.getData('auth_token');
+    const headers = {
+      token: `${authToken}`,
+    };
     return this.http.get(`${this.URL}/locations/countries`, {
-      headers: this.headers,
+      headers: headers,
     });
   }
 
   getStates(country: string) {
+    const authToken = this.localStorageService.getData('auth_token');
+    const headers = {
+      token: `${authToken}`,
+    };
     return this.http.get(`${this.URL}/locations/states/${country}`, {
-      headers: this.headers,
+      headers: headers,
     });
   }
   getCities(city: string) {
+    const authToken = this.localStorageService.getData('auth_token');
+    const headers = {
+      token: `${authToken}`,
+    };
     return this.http.get(`${this.URL}/locations/cities/${city}`, {
-      headers: this.headers,
+      headers: headers,
     });
   }
 }

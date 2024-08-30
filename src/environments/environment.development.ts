@@ -1,3 +1,3 @@
 export const environment = {
-  BACKEND_URL: "https://app-booking-backend-production.up.railway.app/api/v1"
+  BACKEND_URL: "http://localhost:3000/api/v1"
 };
