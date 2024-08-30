@@ -86,7 +86,7 @@ export class RoomManagementComponent implements OnInit {
         this.roomsService
           .editRomm(item.id, { ...romm, hotel: rommId })
           .subscribe((hotels: any) => {
-            this.loadHotels();
+            this.loadRomms();
             this.swalFire.successMessage(
               'Perfecto!',
               'Hotel actualizado con éxito'
