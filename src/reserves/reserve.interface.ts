@@ -1,8 +1,8 @@
 export interface Reserve {
-  id?: number;
-  userId: number;
-  roomId: number;
-  hotelId: number;
+  id?: string;
+  userId: string;
+  roomId: string;
+  hotelId: string;
   date: Date;
   status: string;
   active: boolean;

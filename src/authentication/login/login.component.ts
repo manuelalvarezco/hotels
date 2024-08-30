@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../users/services/users.service';
 import { NavbarService } from '../../globals/services/navbar.service';
+import { LocationsService } from '../../locations/services/locations.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private userService: UsersService,
-    private navbarService: NavbarService
+    private navbarService: NavbarService,
+    private locationsService: LocationsService
   ) {}
 
   currentForm: string = 'signIn';
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAccesstoken();
     this.buildFormLogin();
     this.buildFormRegister();
   }
@@ -54,7 +57,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async login() {
+  login() {
     this.authService.login(this.formLogin.value).subscribe(
       (resp) => {
         if (resp.access_token) {
@@ -67,5 +70,10 @@ export class LoginComponent implements OnInit {
         this.authService.accessDenied('Login');
       }
     );
+  }
+
+
+  getAccesstoken() {
+    this.locationsService.getAccesstoken().subscribe();
   }
 }

@@ -19,8 +19,8 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <tr *ngFor="let hotel of hotels">
-          <td class="px-6 py-4 whitespace-nowrap">{{ hotel.id }}</td>
+        <tr *ngFor="let hotel of hotels; let i = index">
+          <td class="px-6 py-4 whitespace-nowrap">{{ i + 1 }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ hotel.name }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ hotel.city + ', ' + hotel.country }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ hotel.active ? 'Activo' : 'Inactivo' }}</td>

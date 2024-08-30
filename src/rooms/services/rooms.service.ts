@@ -23,11 +23,11 @@ export class RoomsService {
     return this.http.post(`${this.URL}/romms`, room);
   }
 
-  editRomm(id: number, romm: Room) {
+  editRomm(id: string, romm: Room) {
     return this.http.patch(`${this.URL}/romms/${id}`, romm);
   }
 
-  updateRomm(id: number, romm: Room) {
+  updateRomm(id: string, romm: Room) {
     return this.http.patch(`${this.URL}/romms/${id}/update`, romm);
   }
 }

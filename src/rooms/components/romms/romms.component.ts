@@ -39,7 +39,7 @@ export class RommsComponent {
   ngOnInit(): void {
     this.romms$ = this.route.paramMap.pipe(
       switchMap((params) => {
-        this.hotelId = Number(params.get('id'));
+        this.hotelId = params.get('id');
         this.getHotelById();
         this.getRoomsByHotelId();
         return this.roomsService.getRoomsByHotelId(this.hotelId);
@@ -59,7 +59,7 @@ export class RommsComponent {
     })
   }
 
-  reserve(romm: Room) {
+  reserve(romm: any) {
     const dialogRef = this.dialog.open(AddReserveComponent, {
       data: {
         fullName: '',
@@ -80,8 +80,8 @@ export class RommsComponent {
         this.usersService.addUser(user).subscribe((user: any) => {
           if (user) {
             const reserve: Reserve = {
-              userId: user.id,
-              roomId: romm.id,
+              userId: user._id,
+              roomId: romm._id,
               hotelId: romm.hotel,
               active: true,
               date: new Date(),
@@ -103,7 +103,7 @@ export class RommsComponent {
   }
 
   handleMissingImage(event: any, romm: any) {
-    const index = this.romms.findIndex((item) => item.id === romm.id);
+    const index = this.romms.findIndex((item) => item._id === romm.id);
     this.romms[index].image = '/assets/photo10.jpeg';
   }
 }

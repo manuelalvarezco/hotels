@@ -49,7 +49,7 @@ export class HotelManagementComponent {
     });
   }
 
-  editHotel(item: Hotel) {
+  editHotel(item: any) {
     const dialogRef = this.dialog.open(AddHotelComponent, {
       data: { name: item.name, country: item.country, state: item.state, city: item.city, image: item.image, price: item.price },
       width: '400px',
@@ -57,7 +57,7 @@ export class HotelManagementComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const hotel = JSON.parse(JSON.stringify(result)) as any;
-        this.hotelsService.editHotel(item.id, hotel).subscribe((hotels: any) => {
+        this.hotelsService.editHotel(item._id, hotel).subscribe((hotels: any) => {
           this.loadHotels();
           this.swalFire.successMessage('Perfecto!', 'Hotel actualizado con éxito');
         });
@@ -65,13 +65,13 @@ export class HotelManagementComponent {
     });
   }
 
-  updateHotel(hotel: Hotel) {
+  updateHotel(hotel: any) {
     const action = hotel.active ? 'desactivar' : 'activar';
     this.swalFire.confirmActionMessage(`¿Está seguro de ${action} este hotel?`, `${action}`)
     .then((result: any) => {
       if (result.isConfirmed) {
-        this.hotelsService.updateHotel(hotel.id, hotel).subscribe((hotels: any) => {
-          this.hotels = hotels;
+        this.hotelsService.updateHotel(hotel._id, hotel).subscribe((hotels: any) => {
+          this.loadHotels();
           this.swalFire.successMessage('Perfecto!', 'Proceso realizado con éxito');
         });
       }

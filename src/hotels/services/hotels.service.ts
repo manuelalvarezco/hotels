@@ -30,7 +30,7 @@ export class HotelsService {
 
   }
 
-  updateHotel(id: number, hotel: Hotel) {
+  updateHotel(id: string, hotel: Hotel) {
     return this.http.patch(`${this.URL}/hotels/${id}/update`, hotel);
   }
 

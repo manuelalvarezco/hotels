@@ -40,17 +40,21 @@ export class BookingsManagementComponent implements OnInit {
     this.usersService.getUsers().subscribe((users: any) => {
       this.users = users;
       this.loadBookings();
-    })
+    });
   }
 
   loadBookings(): void {
     this.reservesService.getReserves().subscribe((reserves: any) => {
       this.reserves = reserves;
       this.reserves.map((reserve) => {
-        reserve.hotelName = this.hotels.find((hotel: any) => hotel.id === reserve.hotelId)?.name;
-        reserve.userName = this.users.find((user: any) => user.id === reserve.userId)?.fullName;
+        reserve.hotelName = this.hotels.find(
+          (hotel: any) => hotel._id === reserve.hotelId
+        )?.name;
+        reserve.userName = this.users.find(
+          (user: any) => user._id === reserve.userId
+        )?.fullName;
         return reserve;
-      })
+      });
     });
   }
 
@@ -71,8 +75,6 @@ export class BookingsManagementComponent implements OnInit {
         },
         width: '500px',
       });
-
-    })
-
+    });
   }
 }

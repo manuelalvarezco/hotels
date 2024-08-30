@@ -56,6 +56,8 @@ export class AddHotelComponent implements OnInit {
   getCountries() {
     this.locationsService.getCountries().subscribe((countries: any) => {
       this.countries = countries;
+    }, err => {
+      console.log(err);
     });
   }
 

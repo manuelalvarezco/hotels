@@ -13,8 +13,8 @@
           </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-          <tr *ngFor="let reserve of reserves">
-              <td class="px-6 py-4 whitespace-nowrap">{{ reserve.id }}</td>
+          <tr *ngFor="let reserve of reserves; let i = index">
+              <td class="px-6 py-4 whitespace-nowrap">{{ i + 1 }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ reserve.hotelName }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ reserve.userName }}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{ reserve.date | date: 'MMM d, y, h:mm:ss a' }}</td>

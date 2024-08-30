@@ -1,7 +1,7 @@
 
 <div class=" flex flex-wrap justify-center cursor-pointer gap-5">
   @for (hotel of hotels; track hotel) {
-      <div [routerLink]="['/romms/hotel/', hotel.id]" class="w-fit hover:shadow-md rounded-lg px-2">
+      <div [routerLink]="['/romms/hotel/', hotel._id]" class="w-fit hover:shadow-md rounded-lg px-2">
           <div class="p-2">
               <img [src]="hotel.image" (error)="handleMissingImage($event, hotel)" [alt]="hotel.name" class="w-72 h-72 rounded-lg object-cover">
           </div>

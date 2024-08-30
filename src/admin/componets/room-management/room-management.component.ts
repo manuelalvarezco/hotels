@@ -31,24 +31,26 @@ export class RoomManagementComponent implements OnInit {
   }
 
   loadHotels() {
-    this.hotelService.getHotels().subscribe( (hotels: any) => {
+    this.hotelService.getHotels().subscribe((hotels: any) => {
       this.hotels = hotels;
       this.loadRomms();
-    })
+    });
   }
 
   loadRomms(): void {
     this.roomsService.getRooms().subscribe((romms: any) => {
       this.romms = romms;
-      this.romms.map((romm:any) => {
-        romm.hotelName = this.hotels.find((hotel: any) => hotel.id === romm.hotel)?.name
+      this.romms.map((romm: any) => {
+        romm.hotelName = this.hotels.find(
+          (hotel: any) => hotel._id === romm.hotel
+        )?.name;
       });
     });
   }
 
   addRomm() {
     const dialogRef = this.dialog.open(AddRommComponent, {
-      data: { name: '', location: '', image: '', hotel: '',  },
+      data: { name: '', location: '', image: '', hotel: '' },
       width: '400px',
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -84,7 +86,7 @@ export class RoomManagementComponent implements OnInit {
         const romm = JSON.parse(JSON.stringify(result)) as any;
         const rommId = typeof romm.hotel === 'string' ? item.hotel : romm.hotel;
         this.roomsService
-          .editRomm(item.id, { ...romm, hotel: rommId })
+          .editRomm(item._id, { ...romm, hotel: rommId })
           .subscribe((hotels: any) => {
             this.loadRomms();
             this.swalFire.successMessage(
@@ -106,9 +108,9 @@ export class RoomManagementComponent implements OnInit {
       .then((result: any) => {
         if (result.isConfirmed) {
           this.roomsService
-            .updateRomm(hotel.id, hotel)
+            .updateRomm(hotel._id, hotel)
             .subscribe((romms: any) => {
-              this.romms = romms;
+              this.loadRomms();
               this.swalFire.successMessage(
                 'Perfecto!',
                 'Proceso realizado con éxito'

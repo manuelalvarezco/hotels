@@ -86,7 +86,7 @@ export class AddRommComponent implements OnInit {
   displayFn(value: any) {
     const hotel: any =
       typeof value !== 'string'
-        ? this.hotels.find((hotel: Hotel) => hotel.id === value)
+        ? this.hotels.find((hotel: Hotel) => hotel._id === value)
         : { name: value };
     return hotel ? hotel.name : '';
   }

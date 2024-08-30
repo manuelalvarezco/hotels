@@ -20,8 +20,8 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <tr *ngFor="let romm of romms">
-          <td class="px-6 py-4 whitespace-nowrap">{{ romm.id }}</td>
+        <tr *ngFor="let romm of romms; let i = index">
+          <td class="px-6 py-4 whitespace-nowrap">{{ i + 1 }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ romm.name }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ romm.hotelName ? romm.hotelName : '-' }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ romm.price | currency }}</td>

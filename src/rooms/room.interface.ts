@@ -1,5 +1,5 @@
 export interface Room {
-  id: number;
+  _id: string;
   hotel: number;
   name: string;
   hotelName?: string;
