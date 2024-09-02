@@ -16,6 +16,7 @@ import { AuthService } from '../../authentication/services/auth.service';
 export class NavbarComponent {
   auth: any;
   openClose$: Observable<boolean>;
+  toogleNav = false;
   constructor(private navbarService: NavbarService, private router: Router, private authService: AuthService) {
     this.openClose$ =  this.navbarService.isAuth$;
     this.openClose$.subscribe((openClose) => {
@@ -31,5 +32,9 @@ export class NavbarComponent {
     this.authService.logout().subscribe(() => {
       this.router.navigateByUrl('/home');
     })
+  }
+
+  toggleNavbar() {
+    this.toogleNav = !this.toogleNav;
   }
 }
