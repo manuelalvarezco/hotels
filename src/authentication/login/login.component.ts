@@ -57,17 +57,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.formLogin.value).subscribe(
-      (resp) => {
-        if (resp.access_token) {
-          this.authService.grantedAccess();
-          this.navbarService.openClose(true);
-          this.router.navigateByUrl('/admin');
-        }
-      },
-      () => {
-        this.authService.accessDenied('Login');
-      }
-    );
+    this.router.navigateByUrl('/admin');
   }
 }

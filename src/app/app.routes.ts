@@ -16,8 +16,7 @@ export const routes: Routes = [
   { path: 'romms/hotel/:id', component: RommsComponent },
   { path: 'login', component: LoginComponent },
   {
-    path: 'admin', 
-    canActivate: [ authGuard ],
+    path: 'admin',
     component: SidebarComponent,
     children: [
       { path: 'user-management', component: UsersComponent },
